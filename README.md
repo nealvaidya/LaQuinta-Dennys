@@ -1,3 +1,5 @@
+[![wercker status](https://app.wercker.com/status/7f4fc1c00505a798a1444303952961e1/s/master "wercker status")](https://app.wercker.com/project/byKey/7f4fc1c00505a798a1444303952961e1)
+
 Homework 4 - La Quinta is Spanish for next to Denny's
 ---
 
