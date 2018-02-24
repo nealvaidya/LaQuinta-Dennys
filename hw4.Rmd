@@ -1,0 +1,29 @@
+Homework 4 - [Your team name here]
+========================================================
+
+
+### Task 1 - Scraping LQ
+
+<!-- Detail your approach for scraping La Quinta's data -->
+
+```{r}
+load("data/dennys.Rdata")
+load("data/lq.Rdata")
+```
+
+
+<br/>
+
+## Task 2 - Scraping Denny's
+
+<!-- Detail your approach for scraping Denny's data -->
+
+
+<br/>
+
+## Task 3 -  Distance Analysis
+
+<!-- Detail your statistical analysis of the pairwise distance between Denny's and LQ's-->
+
+```{r}
+```
