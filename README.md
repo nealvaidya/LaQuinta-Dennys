@@ -1,15 +1,17 @@
 [![wercker status](https://app.wercker.com/status/7f4fc1c00505a798a1444303952961e1/s/master "wercker status")](https://app.wercker.com/project/byKey/7f4fc1c00505a798a1444303952961e1)
 
+* Vaidya, Neal - nv35@duke.edu
+
+* Boms, Ozi - ocb5@duke.edu
+
+* Harrington, Oisin - ojh3@duke.edu
+
 Homework 4 - La Quinta is Spanish for next to Denny's
 ---
 
 ### due Friday 3/09 by 11:59 pm
 
-<br/>
-<div style="text-align:center">
 ![Dennys next to La Quinta](http://www2.stat.duke.edu/~cr173/Sta323_Sp18/homework/imgs/hedberg.jpg)
-</div>
-<br/>
 
 ## Background
 
