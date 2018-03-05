@@ -3,11 +3,12 @@ if (!"fs" %in% row.names(installed.packages()))
 
 
 library(rvest)
+library(purrr)
+library(magrittr)
+library(dplyr)
 library(fs)
 
 base_url = "http://www2.stat.duke.edu/~cr173/dennys/locations.dennys.com/"
-
-page = read_html(paste0(base_url,"index.html"))
 
 # Basically goes through each of these, and assumes they go three nested links deep. 
 # If they don't, each level of the just returns the level that was passed into it. 
@@ -15,7 +16,10 @@ page = read_html(paste0(base_url,"index.html"))
 # while delware is just DE, since theres only one Denny's Deleware. So every time we try to 
 # get the next level underneath DE (first cities, then locations) we just throw back the DE link
 
-states = page %>% html_nodes(".c-directory-list-content-item-link") %>% html_attr("href")
+states = base_url %>%
+  read_html() %>%
+  html_nodes(".c-directory-list-content-item-link") %>%
+  html_attr("href")
 
 cities = sapply(states,
                 function(state){
@@ -35,7 +39,7 @@ locations = sapply(cities,
                        html_attr("href")
                      if(length(location)==0)
                        return(city)
-                     location = paste(state, location, sep = "/") #make sure that state is included in the URL
+                     location = paste(state, location, sep = "/") #makes sure that state is included in the URL
                      return(location)
                    }) %>% unlist()
 
