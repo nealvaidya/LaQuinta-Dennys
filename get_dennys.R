@@ -46,18 +46,15 @@ locations = sapply(cities,
 output_dir = "data/dennys"
 fs::dir_create(output_dir, recursive=TRUE)
 
-p = dplyr::progress_estimated(length(locations))
+urls = paste0(base_url, locations)
+
+p = dplyr::progress_estimated(length(urls))
 
 purrr::walk(
-  locations,
-  function(location) {
-    download.file(location, destfile = fs::path(output_dir, fs::path_file(location)), quiet = TRUE)
+  urls,
+  function(url) {
+    download.file(url, destfile = fs::path(output_dir, fs::path_file(url)), quiet = TRUE)
     
     p$tick()$print()
   }
 )
-
-
-download.file(paste0(base_url,"index.html"), destfile = fs::path(output_dir, "index.html"), quiet=TRUE)
-
-".c-directory-list-content-item"
