@@ -29,11 +29,13 @@ cities = sapply(states,
 
 locations = sapply(cities, 
                    function(city){
+                     state = substr(city, 1, 2)
                      location = read_html(paste0(base_url,city)) %>% 
                        html_nodes(".c-location-grid-item-title a") %>% 
                        html_attr("href")
                      if(length(location)==0)
                        return(city)
+                     location = paste(state, location, sep = "/") #make sure that state is included in the URL
                      return(location)
                    }) %>% unlist()
 
@@ -41,8 +43,20 @@ locations = sapply(cities,
 
 
 
-loutput_dir = "data/dennys"
+output_dir = "data/dennys"
 fs::dir_create(output_dir, recursive=TRUE)
+
+p = dplyr::progress_estimated(length(locations))
+
+purrr::walk(
+  locations,
+  function(location) {
+    download.file(location, destfile = fs::path(output_dir, fs::path_file(location)), quiet = TRUE)
+    
+    p$tick()$print()
+  }
+)
+
 
 download.file(paste0(base_url,"index.html"), destfile = fs::path(output_dir, "index.html"), quiet=TRUE)
 
