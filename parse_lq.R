@@ -7,6 +7,7 @@ library(magrittr)
 library(purrr)
 library(fs)
 library(stringr)
+library(dplyr)
 
 files = fs::dir_ls("data/lq")
 
