@@ -10,8 +10,6 @@ library(stringr)
 
 files = fs::dir_ls("data/lq")
 
-files = files[1:5]
-
 df = map_dfr(
   files,
   function(target_file) {
@@ -43,4 +41,4 @@ df = map_dfr(
   }
 )
 
-saveRDS(df, file = "data/lq.rds")
+save(df, file = "data/lq.Rdata")
