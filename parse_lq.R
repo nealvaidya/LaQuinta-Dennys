@@ -11,7 +11,7 @@ library(dplyr)
 
 files = fs::dir_ls("data/lq")
 
-df = map_dfr(
+lq = map_dfr(
   files,
   function(target_file) {
     page = read_html(target_file)
@@ -42,4 +42,4 @@ df = map_dfr(
   }
 )
 
-save(df, file = "data/lq.Rdata")
+save(lq, file = "data/lq.Rdata")

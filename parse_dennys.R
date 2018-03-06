@@ -6,6 +6,7 @@ library(magrittr)
 library(purrr)
 library(fs)
 library(stringr)
+library(dplyr)
 
 files = fs::dir_ls("data/dennys")
 
@@ -17,7 +18,7 @@ fix_address = function(address){ #This function trims off the "US " that appears
 
 #Building the data frame
 
-df = map_dfr(
+dennys = map_dfr(
   files,
   function(file){
     page = read_html(file)
@@ -54,4 +55,4 @@ df = map_dfr(
   }
 )
 
-save(df, file = "data/dennys.Rdata")
+save(dennys, file = "data/dennys.Rdata")
