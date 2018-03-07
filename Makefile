@@ -1,13 +1,13 @@
 all: hw4.html
 
-hw4.html: hw4.Rmd data/lq.rds data/dennys.rds
+hw4.html: hw4.Rmd data/lq.Rdata data/dennys.Rdata
 	Rscript -e "library(rmarkdown); render('hw4.Rmd')"
 	
 
-data/lq.rds: parse_lq.R data/lq/*.html
+data/lq.Rdata: parse_lq.R data/lq/*.html
 	Rscript parse_lq.R
 
-data/dennys.rds: parse_dennys.R data/dennys/*.html
+data/dennys.Rdata: parse_dennys.R data/dennys/*.html
 	Rscript parse_dennys.R
 	
 data/lq/*.html: get_lq.R
