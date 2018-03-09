@@ -1,13 +1,11 @@
 if (!"fs" %in% row.names(installed.packages()))
-  install.packages("fs", repos = "https://cran.rstudio.com/")
+  suppressMessages(install.packages("fs", repos = "https://cran.rstudio.com/"))
 
-library(rvest)
-library(purrr)
-library(magrittr)
-library(dplyr)
-library(fs)
-
-
+suppressMessages(library(rvest))
+suppressMessages(library(purrr))
+suppressMessages(library(magrittr))
+suppressMessages(library(dplyr))
+suppressMessages(library(fs))
 
 base_url = "http://www2.stat.duke.edu/~cr173/lq/www.lq.com/en/findandbook/"
 
@@ -19,10 +17,8 @@ urls = page %>%
   discard(is.na) %>%
   paste0(base_url, .)
 
-
 output_dir = "data/lq"
 fs::dir_create(output_dir, recursive=TRUE)
-
 
 p = dplyr::progress_estimated(length(urls))
 
