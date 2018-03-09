@@ -34,8 +34,8 @@ lq = map_dfr(
       file = target_file,
       name = page %>% html_node("h1") %>% html_text(),
       address = paste(info[1],info[2]),
-      phone = info[3] %>% str_remove("Phone: "),
-      fax = info[4] %>% str_remove("Fax: "),
+      phone = info[3] %>% str_replace("Phone: ",""),
+      fax = info[4] %>% str_replace("Fax: ",""),
       lat = latlong[1] %>% as.double(),
       long = latlong[2] %>% as.double()
     )
