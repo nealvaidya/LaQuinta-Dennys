@@ -5,19 +5,14 @@ Homework 4 - Team 7 (Oisin Harrington, Neal Vaidya, Ozi Boms)
 ### Task 1 - Scraping LQ
 
 <!-- Detail your approach for scraping La Quinta's data -->
-
-```{r}
-load("data/dennys.Rdata")
-load("data/lq.Rdata")
-lq = na.omit(lq)
-```
+`get_lq.R` visits the page on La Quinta's site that contains a directory for every La Quinta hotel. The URL link for each of these hotels in the directory is copied, and then each corresponding page is downloaded onto the machine. `parse_lq.R` takes the necessary information from each webpage to create a data frame row for each hotel, which are all combined into one dataframe. The name of the hotel is taken from the only `<H1>` element on the page. The other hotel info is taken from elsewhere on the page -- the phone numbers and address are taken in as one chunk and split by line, with extraneous characters removed. The latitude and longitude information are taken from the url on the page that calls the GoogleMaps API, which includes that information. Various other amenities are discerened from the Amenities and services section of the webpage. 
 
 
 <br/>
 
 ## Task 2 - Scraping Denny's
 
-In parse_dennys.R, I drew from the local cache of the Dennys.com site. From that site, I used SelectorGadget and the "fs" package to get all the state codes that are attached to the end of the URL to navigate to a specific state's list of cities. I then used an apply function to create a vector called "cities", which holds the state codes and city names with Denny's to be attached at the end of the URL, or if there is a state with no city list within it because only one city has a Denny's, it just returns the state. Then, drilling down one level further, I used an apply function to find each location within each city (or just the city if there is only one location in the city), and this vector holds the URL to attach at the end of the Dennys.com site for every Denny's location. Then, having the URLs for each location, I saved each of the sites that the URLs point to in my directory under data/dennys.
+In get_dennys.R, I drew from the local cache of the Dennys.com site. From that site, I used SelectorGadget and the "fs" package to get all the state codes that are attached to the end of the URL to navigate to a specific state's list of cities. I then used an apply function to create a vector called "cities", which holds the state codes and city names with Denny's to be attached at the end of the URL, or if there is a state with no city list within it because only one city has a Denny's, it just returns the state. Then, drilling down one level further, I used an apply function to find each location within each city (or just the city if there is only one location in the city), and this vector holds the URL to attach at the end of the Dennys.com site for every Denny's location. Then, having the URLs for each location, I saved each of the sites that the URLs point to in my directory under data/dennys.
 
 In parse_dennys.R, I loaded the URLs. The goal in this file was to create a tidy data frame with each row as a Denny's location, and each column as a detail about that Denny's. So, I created a data frame, and created columns for location name, address, and phone number using SelectorGadget and the "fs" package. I fed the raw address into a function to edit addresses and put them in a neat form, to put the address in the form I wanted. For longitude and latitude, I found a Google Maps URL in each location site using developer tools, and the URL contained coordinates. So, I extracted the URL string, and then extracted the coordinates the string, and made a column for longitude and latitude. Then, I saved the tidy data frame in data/.
 
@@ -29,6 +24,14 @@ In parse_dennys.R, I loaded the URLs. The goal in this file was to create a tidy
 <!-- Detail your statistical analysis of the pairwise distance between Denny's and LQ's-->
 
 ```{r}
+load("data/dennys.Rdata")
+load("data/lq.Rdata")
+lq = na.omit(lq)
+```
+
+
+```{r}
+install.packages("geosphere", repos = "https://cran.rstudio.com/")
 library(geosphere)
 library(dplyr)
 
