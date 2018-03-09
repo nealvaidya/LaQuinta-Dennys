@@ -9,6 +9,7 @@ Homework 4 - [Your team name here]
 ```{r}
 load("data/dennys.Rdata")
 load("data/lq.Rdata")
+lq = na.omit(lq)
 ```
 
 
@@ -26,4 +27,15 @@ load("data/lq.Rdata")
 <!-- Detail your statistical analysis of the pairwise distance between Denny's and LQ's-->
 
 ```{r}
+library(geosphere)
+library(dplyr)
+
+# distHaversine takes location arguments as (longitude, latitude)
+dennysloc = cbind(dennys$Longitude, dennys$Latitude) %>% as.matrix()
+lqloc = cbind(lq$long, lq$lat) %>% as.matrix()
+
+dist_mat = apply(dennysloc, 1, function(x) distHaversine(x, lqloc, r = 6378.137))
+closestDennys = apply(dist_mat, 1, min)
+closestlq = apply(dist_mat, 2, min)
+lq[closestDennys<1,]
 ```
