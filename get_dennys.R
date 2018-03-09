@@ -54,9 +54,12 @@ urls = paste0(base_url, locations)
 
 p = dplyr::progress_estimated(length(urls))
 
+index = 0
+
 purrr::walk(
   urls,
   function(url) {
+    cat(".")
     download.file(url, destfile = fs::path(output_dir, fs::path_file(url)), quiet = TRUE)
     
     p$tick()$print()
