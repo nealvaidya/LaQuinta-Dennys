@@ -35,7 +35,15 @@ dennysloc = cbind(dennys$Longitude, dennys$Latitude) %>% as.matrix()
 lqloc = cbind(lq$long, lq$lat) %>% as.matrix()
 
 dist_mat = apply(dennysloc, 1, function(x) distHaversine(x, lqloc, r = 6378.137))
+
+#for each laquinta, which are the closest dennies
 closestDennys = apply(dist_mat, 1, min)
+
+#for each dennys, which are the closest laquintas 
 closestlq = apply(dist_mat, 2, min)
-lq[closestDennys<1,]
+
+plot(ecdf(closestlq), do.points = TRUE, xlim=c(-1, 200), main = "Laquintas Closest to Dennys", xlab = "Distance(km)", ylab = "Proportions for each Distance(%)", col="blue") 
+
+plot(ecdf(closestDennys), xlim=c(-1, 200), main = "Dennys Closest to Laquintas", xlab = "Distance(km)", ylab = "Proportions for each Distance(%)", col="red") 
+
 ```
