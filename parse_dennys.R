@@ -24,6 +24,7 @@ dennys = map_dfr(
   function(file){
     
     cat(".")
+
     page = read_html(file)
     
     googleMapsURL = page %>%

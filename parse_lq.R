@@ -18,6 +18,7 @@ lq = map_dfr(
   function(target_file) {
     page = read_html(target_file)
     cat(".")
+
     
     info = page %>% 
       html_node(xpath = '//*[@id="main-wrapper"]/div[2]/div[3]/div[4]/div/div[3]/div[1]/div[1]/p') %>% 

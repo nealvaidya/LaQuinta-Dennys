@@ -28,6 +28,7 @@ purrr::walk(
   function(url) {
     download.file(url, destfile = fs::path(output_dir, fs::path_file(url)), quiet = TRUE)
     cat(".")
+
     p$tick()$print()
   }
 )
