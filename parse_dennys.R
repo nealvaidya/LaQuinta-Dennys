@@ -17,10 +17,15 @@ fix_address = function(address){ #This function trims off the "US " that appears
 }
 
 #Building the data frame
+index = 0
 
 dennys = map_dfr(
   files,
   function(file){
+    
+    index = index = 1
+    if(index%%100==0)
+      cat(index)
     page = read_html(file)
     
     googleMapsURL = page %>%
