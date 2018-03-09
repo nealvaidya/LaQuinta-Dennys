@@ -1,11 +1,11 @@
 if (!"fs" %in% row.names(installed.packages()))
-  suppressMessages(install.packages("fs", repos = "https://cran.rstudio.com/"))
+  install.packages("fs", repos = "https://cran.rstudio.com/")
 
-suppressMessages(library(rvest))
-suppressMessages(library(purrr))
-suppressMessages(library(magrittr))
-suppressMessages(library(dplyr))
-suppressMessages(library(fs))
+library(rvest)
+library(purrr)
+library(magrittr)
+library(dplyr)
+library(fs)
 
 base_url = "http://www2.stat.duke.edu/~cr173/lq/www.lq.com/en/findandbook/"
 
@@ -21,13 +21,13 @@ output_dir = "data/lq"
 fs::dir_create(output_dir, recursive=TRUE)
 
 p = dplyr::progress_estimated(length(urls))
-
+index = 0
 
 purrr::walk(
   urls,
   function(url) {
     download.file(url, destfile = fs::path(output_dir, fs::path_file(url)), quiet = TRUE)
-    
+    cat(".")
     p$tick()$print()
   }
 )

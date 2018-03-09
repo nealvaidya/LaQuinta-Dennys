@@ -10,11 +10,14 @@ library(stringr)
 library(dplyr)
 
 files = fs::dir_ls("data/lq")
+p = dplyr::progress_estimated(length(files))
+index = 0
 
 lq = map_dfr(
   files,
   function(target_file) {
     page = read_html(target_file)
+    cat(".")
     
     info = page %>% 
       html_node(xpath = '//*[@id="main-wrapper"]/div[2]/div[3]/div[4]/div/div[3]/div[1]/div[1]/p') %>% 
