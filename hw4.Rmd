@@ -36,7 +36,7 @@ library(dplyr)
 dennysloc = cbind(dennys$Longitude, dennys$Latitude) %>% as.matrix()
 lqloc = cbind(lq$long, lq$lat) %>% as.matrix()
 
-dist_mat = apply(dennysloc, 1, function(x) distHaversine(x, lqloc, r = 6378.137))
+dist_mat = apply(dennysloc, 1, function(x) distHaversine(x, lqloc, r = 3963.1905919))
 
 #for each laquinta, which are the closest dennies
 closestDennys = apply(dist_mat, 1, min)
@@ -44,8 +44,21 @@ closestDennys = apply(dist_mat, 1, min)
 #for each dennys, which are the closest laquintas 
 closestlq = apply(dist_mat, 2, min)
 
-plot(ecdf(closestlq), do.points = TRUE, xlim=c(-1, 200), main = "Laquintas Closest to Dennys", xlab = "Distance(km)", ylab = "Proportions for each Distance(%)", col="blue") 
+plot(ecdf(closestlq), do.points = TRUE, xlim=c(0, .5), main = "Laquintas Closest to Dennys", xlab = "Distance(miles)", ylab = "Proportions for each Distance(%)", col="blue") 
 
-plot(ecdf(closestDennys), xlim=c(-1, 200), main = "Dennys Closest to Laquintas", xlab = "Distance(km)", ylab = "Proportions for each Distance(%)", col="red") 
-
+plot(ecdf(closestDennys), xlim=c(0, .5), main = "Dennys Closest to Laquintas", xlab = "Distance(miles)", ylab = "Proportions for each Distance(%)", col="red") 
 ```
+
+
+After scraping the website and parsing the information from the Dennys' and Laquintas', we took the longitudes and latitudes of both the dennys information and laquintas information. Then we cbinded those to their own matrices and calculated the haversine distance (using a radius of 3963.1905919 which gives us distances in miles) between the two matrices of laquintas and dennys. We stored those in closestDennys (for each laquinta, which are the closest dennies) and closestlq (for each dennys, which are the closest laquintas). Then, we plotted the Empirical Cumulative Distribution Function (ecdf) for each distance we created before. This gives us a plot for the relationship between the distances between laquintas and dennys in terms of proportionality for each distance. 
+
+When we analyzed the data, we used half a mile to determine the cutoff for "closest" laquintas to dennys. We graphed both relationships (red =for each laquinta, which are the closest dennies and blue = for each dennys, which are the closest laquintas) and first, we use the blue plot to analyze the validity of the statement. From the graph, we can see that at a distance of .5 miles, approximately 12% of all laquintas are within .5 miles of a dennys. If we look at the other graph of the red plot, we see that approximately 18% of all dennys are within .5 miles of a laquinta. 
+
+This is informative but .5 miles is still a little far so we can look at the values with a cutoff of .1 miles.
+Form the blue graph, approximately 4% of all laquintas are within .1 miles of a dennys and from the red graph, approximately 7% of all dennys are within .5 miles of a laquinta.
+
+With these cutoffs and data, we note that there is a pattern for the relationship between dennys and laquintas. On average, there appears more likely to be a dennys close to a laquinta than a laquinta close to a dennys. This makes sense because there are more dennys than laquintas in the datas set; there are more restaurants than hotels so you're more likely to find a dennys (a restaurant) close to a laquinta (a hotel) than vice versa. 
+
+As to the valitidity of the joke, if we look at a half a mile radius distance, we note that laquintas closes to dennys is still about 12%, which is somewhat significant considering the number of restaurants and hotels spread around the world. However, once we move to a smaller .1 mile radius, 4% is a much less significant value and doesn't hold up the main statement. 
+
+
