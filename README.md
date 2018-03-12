@@ -1,5 +1,8 @@
 [![wercker status](https://app.wercker.com/status/7f4fc1c00505a798a1444303952961e1/s/master "wercker status")](https://app.wercker.com/project/byKey/7f4fc1c00505a798a1444303952961e1)
 
+### Cloned with permission from instructor. 
+Credit: Scraping and parsing La Quinta data, Scraping (but not parsing) Denny's daya, calculating and visualizing distances between the two
+
 * Vaidya, Neal - nv35@duke.edu
 
 * Boms, Ozi - ocb5@duke.edu
